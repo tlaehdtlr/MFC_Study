@@ -19,6 +19,7 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_WM_NCPAINT()
 END_MESSAGE_MAP()
 
 // CMainFrame construction/destruction
@@ -92,3 +93,25 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+
+
+void CMainFrame::OnNcPaint()
+{
+	// TODO: Add your message handler code here
+	// Do not call CFrameWnd::OnNcPaint() for painting messages
+	
+
+
+	//CFrameWnd::OnNcPaint();
+
+	CWindowDC dc(this);
+	int height = ::GetSystemMetrics(SM_CYSIZE) + GetSystemMetrics(SM_CYSIZEFRAME);
+	dc.Rectangle(150, 0, 350, height + 1);
+
+	CRect rect;
+	GetWindowRect(&rect);
+
+	CString str;
+	str.Format(_T("Width=%4d, Height=%4d"), rect.Width(), rect.Height());
+	dc.TextOut(160, 7, str);
+}

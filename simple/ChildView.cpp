@@ -25,6 +25,7 @@ CChildView::~CChildView()
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -53,3 +54,12 @@ void CChildView::OnPaint()
 	// Do not call CWnd::OnPaint() for painting messages
 }
 
+
+
+void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+	CClientDC dc(this);
+	dc.Rectangle(point.x - 20, point.y - 20, point.x + 20, point.y + 20);
+	CWnd::OnLButtonDown(nFlags, point);
+}
