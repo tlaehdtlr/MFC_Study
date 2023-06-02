@@ -16,6 +16,9 @@ public:
 
 // Attributes
 public:
+	int m_xPos, m_yPos;
+	int m_xMax, m_yMax;
+	BOOL m_bFill;
 
 // Operations
 public:
@@ -31,6 +34,8 @@ public:
 	// Generated message map functions
 protected:
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnKeyDown(UINT nChar, UINT nRRepCnt, UINT nFlags);
 	DECLARE_MESSAGE_MAP()
 };
 

@@ -16,6 +16,9 @@
 
 CChildView::CChildView()
 {
+	m_xMax = m_yMax = 60;
+	m_xPos = m_yPos = 60;
+	m_bFill = FALSE;
 }
 
 CChildView::~CChildView()
@@ -25,6 +28,8 @@ CChildView::~CChildView()
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
+	ON_WM_SIZE()
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 
@@ -50,6 +55,41 @@ void CChildView::OnPaint()
 	
 	// TODO: Add your message handler code here
 	
+	if (m_bFill == TRUE) dc.SelectStockObject(BLACK_BRUSH);
+	dc.Ellipse(m_xPos - 20, m_yPos - 20, m_xPos + 20, m_yPos + 20);
+
+
 	// Do not call CWnd::OnPaint() for painting messages
 }
 
+void CChildView::OnSize(UINT nType, int cx, int cy)
+{
+	m_xMax = cx;
+	m_yMax = cy;
+}
+
+void CChildView::OnKeyDown(UINT nChar, UINT nRRepCnt, UINT nFlags)
+{
+	switch (nChar)
+	{
+		case VK_LEFT:
+			m_xPos -= 20;
+			break;
+		case VK_RIGHT:
+			m_xPos += 20;
+			break;
+		case VK_UP:
+			m_yPos -= 20;
+			break;
+		case VK_DOWN:
+			m_yPos += 20;
+			break;
+		case VK_SPACE:
+			m_bFill = !m_bFill;
+			break;
+	}
+
+	m_xPos = min(max(20, m_xPos), m_xMax - 20);
+	m_yPos = min(max(20, m_yPos), m_yMax - 20);
+	Invalidate();
+}
