@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <afxtempl.h>
 
 class CInputSaveLoadDoc : public CDocument
 {
@@ -14,7 +15,8 @@ protected: // create from serialization only
 
 // Attributes
 public:
-
+	CArray<TCHAR, TCHAR> m_str;
+	BOOL m_bItalic, m_bUnderline;
 // Operations
 public:
 
@@ -45,4 +47,9 @@ protected:
 	// Helper function that sets search content for a Search Handler
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+public:
+	afx_msg void OnStyleItalic();
+	afx_msg void OnStyleUnderline();
+	afx_msg void OnUpdateStyleItalic(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateStyleUnderline(CCmdUI* pCmdUI);
 };

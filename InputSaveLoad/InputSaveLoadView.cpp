@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CInputSaveLoadView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_CHAR()
 END_MESSAGE_MAP()
 
 // CInputSaveLoadView construction/destruction
@@ -51,7 +52,7 @@ BOOL CInputSaveLoadView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CInputSaveLoadView drawing
 
-void CInputSaveLoadView::OnDraw(CDC* /*pDC*/)
+void CInputSaveLoadView::OnDraw(CDC* pDC)
 {
 	CInputSaveLoadDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -59,6 +60,16 @@ void CInputSaveLoadView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
+	CFont font;
+	font.CreateFont(30, 0, 0, 0, 0, pDoc->m_bItalic,
+		pDoc->m_bUnderline, 0, 0, 0, 0, 0, 0, _T("±Ã¼­"));
+	pDC->SelectObject(&font);
+
+	CRect rect;
+	GetClientRect(&rect);
+	pDC->DrawText(pDoc->m_str.GetData(),
+		pDoc->m_str.GetSize(), &rect, DT_LEFT);
+
 }
 
 
@@ -103,3 +114,26 @@ CInputSaveLoadDoc* CInputSaveLoadView::GetDocument() const // non-debug version 
 
 
 // CInputSaveLoadView message handlers
+
+
+void CInputSaveLoadView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	//CView::OnChar(nChar, nRepCnt, nFlags);
+
+	CInputSaveLoadDoc* pDoc = GetDocument();
+
+	if (nChar == _T('\b')) {
+		if (pDoc->m_str.GetSize() > 0) {
+			pDoc->m_str.RemoveAt(pDoc->m_str.GetSize() - 1);
+		}
+	}
+	else {
+		pDoc->m_str.Add(nChar);
+	}
+
+	pDoc->SetModifiedFlag();
+
+	Invalidate();
+}

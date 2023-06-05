@@ -23,6 +23,10 @@
 IMPLEMENT_DYNCREATE(CInputSaveLoadDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CInputSaveLoadDoc, CDocument)
+	ON_COMMAND(ID_STYLE_ITALIC, &CInputSaveLoadDoc::OnStyleItalic)
+	ON_COMMAND(ID_STYLE_UNDERLINE, &CInputSaveLoadDoc::OnStyleUnderline)
+	ON_UPDATE_COMMAND_UI(ID_STYLE_ITALIC, &CInputSaveLoadDoc::OnUpdateStyleItalic)
+	ON_UPDATE_COMMAND_UI(ID_STYLE_UNDERLINE, &CInputSaveLoadDoc::OnUpdateStyleUnderline)
 END_MESSAGE_MAP()
 
 
@@ -46,6 +50,9 @@ BOOL CInputSaveLoadDoc::OnNewDocument()
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
 
+	m_str.RemoveAll();
+	m_bItalic = m_bUnderline = FALSE;
+
 	return TRUE;
 }
 
@@ -59,10 +66,14 @@ void CInputSaveLoadDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: add storing code here
+		ar << m_bItalic << m_bUnderline;
+		m_str.Serialize(ar);
 	}
 	else
 	{
 		// TODO: add loading code here
+		ar >> m_bItalic >> m_bUnderline;
+		m_str.Serialize(ar);
 	}
 }
 
@@ -136,3 +147,35 @@ void CInputSaveLoadDoc::Dump(CDumpContext& dc) const
 
 
 // CInputSaveLoadDoc commands
+
+
+void CInputSaveLoadDoc::OnStyleItalic()
+{
+	// TODO: Add your command handler code here
+	m_bItalic = !m_bItalic;
+	SetModifiedFlag();
+	UpdateAllViews(NULL);
+}
+
+
+void CInputSaveLoadDoc::OnUpdateStyleItalic(CCmdUI* pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	pCmdUI->SetCheck(m_bItalic == TRUE);
+}
+
+
+void CInputSaveLoadDoc::OnStyleUnderline()
+{
+	// TODO: Add your command handler code here
+	m_bUnderline = !m_bUnderline;
+	SetModifiedFlag();
+	UpdateAllViews(NULL);
+}
+
+
+void CInputSaveLoadDoc::OnUpdateStyleUnderline(CCmdUI* pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	pCmdUI->SetCheck(m_bUnderline == TRUE);
+}
