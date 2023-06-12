@@ -47,6 +47,12 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	CButton m_checkbox;
+	CButton m_3state;
+	CButton m_radio1;
+	CButton m_radio2;
+	afx_msg void OnBnClickedButton1();
 };
 
 #ifndef _DEBUG  // debug version in Button_by_resourceView.cpp

@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CButtonbyresourceView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT, &CFormView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CFormView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
+	ON_BN_CLICKED(IDC_BUTTON1, &CButtonbyresourceView::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 // CButtonbyresourceView construction/destruction
@@ -45,6 +46,10 @@ CButtonbyresourceView::~CButtonbyresourceView()
 void CButtonbyresourceView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_CHECK1, m_checkbox);
+	DDX_Control(pDX, IDC_CHECK2, m_3state);
+	DDX_Control(pDX, IDC_RADIO1, m_radio1);
+	DDX_Control(pDX, IDC_RADIO2, m_radio2);
 }
 
 BOOL CButtonbyresourceView::PreCreateWindow(CREATESTRUCT& cs)
@@ -61,6 +66,10 @@ void CButtonbyresourceView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 
+
+	m_checkbox.SetCheck(1);
+	m_3state.SetCheck(2);
+	m_radio2.SetCheck(1);
 }
 
 
@@ -110,3 +119,20 @@ CButtonbyresourceDoc* CButtonbyresourceView::GetDocument() const // non-debug ve
 
 
 // CButtonbyresourceView message handlers
+
+
+void CButtonbyresourceView::OnBnClickedButton1()
+{
+	// TODO: Add your control notification handler code here
+
+	int state_checkbox = m_checkbox.GetCheck();
+	int state_3state = m_3state.GetCheck();
+	int state_radio1 = m_radio1.GetCheck();
+	int state_radio2 = m_radio2.GetCheck();
+
+	CString str;
+	str.Format(_T("Button state : %d, %d, %d, %d"),
+		state_checkbox, state_3state, state_radio1, state_radio2);
+
+	MessageBox(str, _T("Button example"), MB_ICONINFORMATION);
+}
