@@ -27,6 +27,8 @@ BEGIN_MESSAGE_MAP(CButtonbycodeView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_CREATE()
+	ON_BN_CLICKED(101, OnButtonClicked)
 END_MESSAGE_MAP()
 
 // CButtonbycodeView construction/destruction
@@ -103,3 +105,57 @@ CButtonbycodeDoc* CButtonbycodeView::GetDocument() const // non-debug version is
 
 
 // CButtonbycodeView message handlers
+
+int CButtonbycodeView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CView::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO:  Add your specialized creation code here
+
+	m_pushbutton.Create(_T("Push button"),
+		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+		CRect(20, 20, 160, 50), this, 101);
+	
+	m_checkbox.Create(_T("Check box"),
+		WS_CHILD| WS_VISIBLE | BS_AUTOCHECKBOX,
+		CRect(20, 60, 160, 90), this, 102);
+
+	m_3state.Create(_T("3 state check box"),
+		WS_CHILD| WS_VISIBLE | BS_AUTO3STATE,
+		CRect(20, 100, 160, 130), this, 103);
+
+	m_radio1.Create(_T("Radio 1"),
+		WS_CHILD| WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON,
+		CRect(20, 170, 160, 200), this, 104);
+
+	m_radio2.Create(_T("Radio 2"),
+		WS_CHILD| WS_VISIBLE | BS_AUTORADIOBUTTON,
+		CRect(20, 210, 160, 240), this, 105);
+	
+	m_groupbox.Create(_T("Group box"),
+		WS_CHILD| WS_VISIBLE | BS_GROUPBOX,
+		CRect(20, 140, 160, 250), this, 106);
+
+	m_checkbox.SetCheck(1);
+	m_3state.SetCheck(2);
+	m_radio2.SetCheck(1);
+
+	return 0;
+}
+
+
+void CButtonbycodeView::OnButtonClicked()
+{
+	// TODO: Add your implementation code here.
+	int state_checkbox = m_checkbox.GetCheck();
+	int state_3state = m_3state.GetCheck();
+	int state_radio1 = m_radio1.GetCheck();
+	int state_radio2 = m_radio2.GetCheck();
+
+	CString str;
+	str.Format(_T("Button state : %d, %d, %d, %d"),
+		state_checkbox, state_3state, state_radio1, state_radio2);
+
+	MessageBox(str, _T("Button ¿¹Á¦"), MB_ICONINFORMATION);
+}

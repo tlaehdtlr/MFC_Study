@@ -14,6 +14,12 @@ protected: // create from serialization only
 // Attributes
 public:
 	CButtonbycodeDoc* GetDocument() const;
+	CButton m_pushbutton;
+	CButton m_checkbox;
+	CButton m_3state;
+	CButton m_radio1;
+	CButton m_radio2;
+	CButton m_groupbox;
 
 // Operations
 public:
@@ -40,6 +46,9 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	void OnButtonClicked();
 };
 
 #ifndef _DEBUG  // debug version in Button_by_codeView.cpp
