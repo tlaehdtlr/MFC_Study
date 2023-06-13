@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CSubClassView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT, &CFormView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CFormView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
+	ON_EN_CHANGE(IDC_EDIT1, &CSubClassView::OnEnChangeEdit1)
 END_MESSAGE_MAP()
 
 // CSubClassView construction/destruction
@@ -45,6 +46,7 @@ CSubClassView::~CSubClassView()
 void CSubClassView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT1, m_edit1);
 }
 
 BOOL CSubClassView::PreCreateWindow(CREATESTRUCT& cs)
@@ -110,3 +112,14 @@ CSubClassDoc* CSubClassView::GetDocument() const // non-debug version is inline
 
 
 // CSubClassView message handlers
+
+
+void CSubClassView::OnEnChangeEdit1()
+{
+	// TODO:  If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CFormView::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Add your control notification handler code here
+}

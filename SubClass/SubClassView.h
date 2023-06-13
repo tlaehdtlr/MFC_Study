@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "CMyEdit.h"
 
 class CSubClassView : public CFormView
 {
@@ -47,6 +47,9 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnEnChangeEdit1();
+	CMyEdit m_edit1;
 };
 
 #ifndef _DEBUG  // debug version in SubClassView.cpp
