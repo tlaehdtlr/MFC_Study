@@ -45,6 +45,7 @@ CMessageReflectionView::~CMessageReflectionView()
 void CMessageReflectionView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_LIST1, m_list);
 }
 
 BOOL CMessageReflectionView::PreCreateWindow(CREATESTRUCT& cs)
@@ -61,6 +62,10 @@ void CMessageReflectionView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 
+	m_list.AddString(_T("사과"));
+	m_list.AddString(_T("포도"));
+	m_list.AddString(_T("참외"));
+	m_list.AddString(_T("수박"));
 }
 
 

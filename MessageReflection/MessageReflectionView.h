@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "CMyListBox.h"
 
 class CMessageReflectionView : public CFormView
 {
@@ -47,6 +47,8 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	CMyListBox m_list;
 };
 
 #ifndef _DEBUG  // debug version in MessageReflectionView.cpp
