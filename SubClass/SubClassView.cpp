@@ -62,7 +62,7 @@ void CSubClassView::OnInitialUpdate()
 	CFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
-
+	m_edit2.SubclassDlgItem(IDC_EDIT2, this);
 }
 
 

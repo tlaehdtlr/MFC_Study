@@ -19,7 +19,7 @@ public:
 // Attributes
 public:
 	CSubClassDoc* GetDocument() const;
-
+	CMyEdit m_edit2;
 // Operations
 public:
 
