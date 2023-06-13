@@ -14,6 +14,8 @@ protected: // create from serialization only
 // Attributes
 public:
 	CModalDialogDoc* GetDocument() const;
+	CString m_str;
+	int m_font;
 
 // Operations
 public:
@@ -40,6 +42,8 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // debug version in ModalDialogView.cpp

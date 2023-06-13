@@ -12,6 +12,7 @@
 
 #include "ModalDialogDoc.h"
 #include "ModalDialogView.h"
+#include "CMyDialog.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -27,6 +28,7 @@ BEGIN_MESSAGE_MAP(CModalDialogView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CModalDialogView construction/destruction
@@ -34,6 +36,8 @@ END_MESSAGE_MAP()
 CModalDialogView::CModalDialogView() noexcept
 {
 	// TODO: add construction code here
+	m_str = _T("");
+	m_font = 0;
 
 }
 
@@ -51,7 +55,7 @@ BOOL CModalDialogView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CModalDialogView drawing
 
-void CModalDialogView::OnDraw(CDC* /*pDC*/)
+void CModalDialogView::OnDraw(CDC* pDC)
 {
 	CModalDialogDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -59,6 +63,21 @@ void CModalDialogView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
+
+	CFont font;
+	CString fontname;
+
+	//if (m_font == 0) fontname = _T("±¼¸²");
+	//else if (m_font == 0) fontname = _T("±Ã¼­");
+	//else if (m_font == 0) fontname = _T("¹ÙÅÁ");
+	if (m_font == 0) fontname = _T("Modern");
+	else if (m_font == 0) fontname = _T("MS Outlook");
+	else if (m_font == 0) fontname = _T("MT Extra");
+	font.CreatePointFont(400, fontname);
+
+	pDC->SelectObject(&font);
+	pDC->TextOutW(10, 10, m_str);
+
 }
 
 
@@ -103,3 +122,26 @@ CModalDialogDoc* CModalDialogView::GetDocument() const // non-debug version is i
 
 
 // CModalDialogView message handlers
+
+
+void CModalDialogView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CView::OnLButtonDown(nFlags, point);
+
+	CMyDialog dlg;
+	dlg.m_str = m_str;
+	dlg.m_font = m_font;
+
+	int result = dlg.DoModal();
+	if (result == IDOK) {
+		m_str = dlg.m_str;
+		m_font = dlg.m_font;
+		Invalidate();
+	}
+	else if (result == IDC_BUTTON1) {
+		m_str = _T("");
+		Invalidate();
+	}
+}

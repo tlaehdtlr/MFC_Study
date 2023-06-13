@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CMyDialog.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="ModalDialog.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CMyDialog.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="ModalDialog.cpp" />
     <ClCompile Include="ModalDialogDoc.cpp" />
